@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suphachai Pet Shop - ร้านค้าออนไลน์สำหรับสัตว์เลี้ยงที่คุณรัก</title>
+  <meta name="description" content="จำหน่ายอาหาร ที่อยู่ ของเล่น สำหรับสุนัข แมว และปลาสวยงาม คุณภาพพรีเมียม จัดส่งรวดเร็ว">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header id="main-header">
+    <div class="nav-container">
+      <a href="#" class="logo" id="brand-logo">
+        <i data-lucide="paw-print"></i> Suphachai<span>PetShop</span>
+      </a>
+
+      <!-- Hamburger Menu for Mobile -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="เปิดเมนู">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <!-- Navigation Menu -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-category="dog">
+            สุนัข <i data-lucide="chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="#" data-filter="dog-food">อาหารสุนัข</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="dog-housing">ที่อยู่อาศัยสุนัข</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="dog-toys">ของเล่นสุนัข</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-category="cat">
+            แมว <i data-lucide="chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="#" data-filter="cat-food">อาหารแมว</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="cat-housing">ที่อยู่อาศัยแมว</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="cat-toys">ของเล่นแมว</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-category="fish">
+            ปลาสวยงาม <i data-lucide="chevron-down"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="#" data-filter="fish-food">อาหารปลา</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="fish-housing">ตู้ปลาและอุปกรณ์</a></li>
+            <li class="dropdown-item"><a href="#" data-filter="fish-toys">ของตกแต่งตู้ปลา</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <button class="action-btn" id="member-btn" aria-label="บัญชีผู้ใช้">
+          <i data-lucide="user"></i>
+        </button>
+        <button class="action-btn" id="cart-btn" aria-label="ตะกร้าสินค้า">
+          <i data-lucide="shopping-bag"></i>
+          <span class="cart-count" id="cart-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">Premium Pet Supplies</span>
+        <h1 class="hero-title">เพื่อนแท้ของสัตว์เลี้ยง <span>ที่คุณรัก</span></h1>
+        <p class="hero-desc">ค้นพบสินค้าคุณภาพชั้นนำสำหรับสัตว์เลี้ยงแสนรักของคุณ ไม่ว่าจะเป็นอาหารสูตรพรีเมียม ที่นอนแสนอบอุ่น หรือของเล่นเสริมพัฒนาการ เราคัดสรรสิ่งที่ดีที่สุดเพื่อความสุขและสุขภาพที่ดีของพวกเขา</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" id="hero-shop-btn">ช้อปเลยตอนนี้ <i data-lucide="arrow-right"></i></button>
+          <button class="btn btn-secondary" id="hero-more-btn">ดูรายละเอียดร้าน</button>
+        </div>
+      </div>
+      <div class="hero-image-wrapper">
+        <img src="assets/hero_banner.png" alt="สุนัข แมว และปลาสวยงาม สัตว์เลี้ยงแสนรัก">
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Filter Tags Section -->
+  <section class="categories-filter" id="categories-section">
+    <p class="section-subtitle">Our Categories</p>
+    <h2 class="section-title">ประเภทสัตว์เลี้ยง</h2>
+    <div class="filter-tags">
+      <button class="filter-tag active" data-filter-tag="all">ทั้งหมด</button>
+      <button class="filter-tag" data-filter-tag="dog">สุนัข (Dogs)</button>
+      <button class="filter-tag" data-filter-tag="cat">แมว (Cats)</button>
+      <button class="filter-tag" data-filter-tag="fish">ปลาสวยงาม (Fish)</button>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section" id="products-section">
+    <div class="products-grid" id="products-grid">
+      <!-- Products will be generated dynamically by JavaScript -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <a href="#" class="logo footer-logo">
+          <i data-lucide="paw-print"></i> Suphachai<span>PetShop</span>
+        </a>
+        <p class="footer-desc">เรามุ่งมั่นที่จะนำเสนอสินค้าและบริการที่ดีที่สุดเพื่อสัตว์เลี้ยงแสนรักของคุณ ด้วยสินค้าคุณภาพสูง ปลอดภัย และราคาเป็นมิตร</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">ลิงก์ด่วน</h3>
+        <ul class="footer-links">
+          <li><a href="#" data-filter="all"><i data-lucide="chevron-right"></i> สินค้าทั้งหมด</a></li>
+          <li><a href="#" data-filter="dog"><i data-lucide="chevron-right"></i> สินค้าสำหรับสุนัข</a></li>
+          <li><a href="#" data-filter="cat"><i data-lucide="chevron-right"></i> สินค้าสำหรับแมว</a></li>
+          <li><a href="#" data-filter="fish"><i data-lucide="chevron-right"></i> สินค้าสำหรับปลาสวยงาม</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-title">ข้อมูลติดต่อ</h3>
+        <ul class="footer-links">
+          <li><a><i data-lucide="map-pin"></i> 123 ถนนสุขุมวิท กรุงเทพฯ 10110</a></li>
+          <li><a><i data-lucide="phone"></i> 02-345-6789</a></li>
+          <li><a><i data-lucide="mail"></i> info@suphachaipetshop.com</a></li>
+          <li><a><i data-lucide="clock"></i> เปิดบริการทุกวัน: 09:00 - 20:00 น.</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h3 class="footer-title">รับข่าวสารและโปรโมชัน</h3>
+        <p class="footer-desc">สมัครรับข่าวสารเพื่อไม่พลาดโปรโมชันพิเศษและสินค้าใหม่ล่าสุด</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" placeholder="อีเมลของคุณ" required class="newsletter-input" aria-label="อีเมลสำหรับจดหมายข่าว">
+          <button type="submit" class="btn-newsletter">สมัคร</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      &copy; 2026 Suphachai Pet Shop. All rights reserved. พัฒนาด้วยความรักเพื่อสัตว์เลี้ยง
+    </div>
+  </footer>
+
+  <!-- Background Overlay for Modal/Drawer -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Shopping Cart Drawer (Right Side) -->
+  <div class="drawer drawer-right" id="cart-drawer">
+    <div class="drawer-header">
+      <h2 class="drawer-title"><i data-lucide="shopping-cart"></i> ตะกร้าสินค้า</h2>
+      <button class="drawer-close" id="cart-close-btn" aria-label="ปิดตะกร้า"><i data-lucide="x"></i></button>
+    </div>
+    <div class="drawer-content" id="cart-content">
+      <!-- Cart Items generated dynamically -->
+    </div>
+    <div class="drawer-footer" id="cart-footer">
+      <div class="cart-totals">
+        <div class="total-row">
+          <span>จำนวนสินค้า</span>
+          <span id="cart-total-items">0 ชิ้น</span>
+        </div>
+        <div class="total-row">
+          <span>ค่าจัดส่ง</span>
+          <span id="cart-shipping">ฟรี</span>
+        </div>
+        <div class="total-row grand-total">
+          <span>ยอดรวมสุทธิ</span>
+          <span id="cart-grand-total">0 บาท</span>
+        </div>
+      </div>
+      <button class="btn-checkout" id="checkout-btn">ดำเนินการสั่งซื้อ</button>
+    </div>
+  </div>
+
+  <!-- Member Drawer (Left Side) -->
+  <div class="drawer drawer-left" id="member-drawer">
+    <div class="drawer-header">
+      <h2 class="drawer-title" id="member-title"><i data-lucide="user-check"></i> เข้าสู่ระบบ</h2>
+      <button class="drawer-close" id="member-close-btn" aria-label="ปิดเมนูสมาชิก"><i data-lucide="x"></i></button>
+    </div>
+    <div class="drawer-content">
+      <!-- Login Form -->
+      <div id="login-form-wrapper">
+        <div class="member-form-group">
+          <div class="form-field">
+            <label class="form-label" for="login-email">อีเมล</label>
+            <input type="email" id="login-email" class="form-input" placeholder="example@mail.com" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="login-password">รหัสผ่าน</label>
+            <input type="password" id="login-password" class="form-input" placeholder="ป้อนรหัสผ่านของคุณ" required>
+          </div>
+        </div>
+        <button class="btn-checkout" id="login-submit-btn">เข้าสู่ระบบ</button>
+        <p class="member-switch">ยังไม่มีบัญชี? <span id="switch-to-register">สมัครสมาชิก</span></p>
+      </div>
+
+      <!-- Register Form (Hidden by default) -->
+      <div id="register-form-wrapper" style="display: none;">
+        <div class="member-form-group">
+          <div class="form-field">
+            <label class="form-label" for="register-name">ชื่อ-นามสกุล</label>
+            <input type="text" id="register-name" class="form-input" placeholder="สมชาย ใจดี" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="register-email">อีเมล</label>
+            <input type="email" id="register-email" class="form-input" placeholder="example@mail.com" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="register-password">รหัสผ่าน</label>
+            <input type="password" id="register-password" class="form-input" placeholder="อย่างน้อย 6 ตัวอักษร" required>
+          </div>
+        </div>
+        <button class="btn-checkout" id="register-submit-btn">สมัครสมาชิก</button>
+        <p class="member-switch">มีบัญชีอยู่แล้ว? <span id="switch-to-login">เข้าสู่ระบบ</span></p>
+      </div>
+
+      <!-- Logged In Dashboard (Hidden by default) -->
+      <div id="member-profile-wrapper" style="display: none; text-align: center;">
+        <div style="margin: 2rem 0;">
+          <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--accent-light); color: var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+            <i data-lucide="user" style="width: 40px; height: 40px;"></i>
+          </div>
+          <h3 style="color: var(--primary); font-size: 1.25rem;" id="user-display-name">คุณ สมาชิกทั่วไป</h3>
+          <p style="color: var(--text-medium); font-size: 0.9rem;" id="user-display-email">member@suphachaipetshop.com</p>
+        </div>
+        <div style="border-top: 1px solid var(--border); padding-top: 1.5rem; text-align: left; display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="#" style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-medium); font-weight: 500;"><i data-lucide="package"></i> ประวัติการสั่งซื้อ</a>
+          <a href="#" style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-medium); font-weight: 500;"><i data-lucide="heart"></i> สินค้าที่ถูกใจ</a>
+          <a href="#" style="display: flex; align-items: center; gap: 0.75rem; color: var(--text-medium); font-weight: 500;"><i data-lucide="settings"></i> ตั้งค่าโปรไฟล์</a>
+        </div>
+        <button class="btn-checkout" id="logout-btn" style="margin-top: 3rem; background: var(--primary);">ออกจากระบบ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div class="modal" id="product-modal">
+    <button class="modal-close-btn" id="modal-close-btn" aria-label="ปิดหน้าต่าง"><i data-lucide="x"></i></button>
+    <div class="modal-grid">
+      <div class="modal-img-container">
+        <img id="modal-img" src="" alt="รูปสินค้า">
+      </div>
+      <div class="modal-content">
+        <span class="product-category" id="modal-category">CATEGORY</span>
+        <h2 class="modal-title" id="modal-title">ชื่อสินค้าพรีเมียม</h2>
+        <div class="modal-price-rating">
+          <div class="modal-price" id="modal-price">฿0</div>
+          <div class="product-rating" id="modal-rating">
+            <!-- Stars rendered dynamically -->
+          </div>
+        </div>
+        <p class="modal-desc" id="modal-desc">
+          รายละเอียดสินค้าแบบเต็มรูปแบบ ข้อมูลเกี่ยวกับวิธีการใช้งานและประโยชน์สำหรับสัตว์เลี้ยงของคุณ...
+        </p>
+        <div class="modal-info-row">
+          <div class="modal-info-item">
+            <span>สถานะ:</span> <span style="color: var(--success);" id="modal-status">มีสินค้าพร้อมส่ง</span>
+          </div>
+          <div class="modal-info-item">
+            <span>รหัสสินค้า:</span> <span id="modal-sku">SKU-12345</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <div class="modal-qty-selector">
+            <button class="modal-qty-btn" id="modal-qty-minus">-</button>
+            <div class="modal-qty-val" id="modal-qty-val">1</div>
+            <button class="modal-qty-btn" id="modal-qty-plus">+</button>
+          </div>
+          <button class="modal-add-to-cart" id="modal-add-to-cart-btn">
+            <i data-lucide="shopping-cart"></i> เพิ่มลงตะกร้า
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Lucide Icons & Javascript Logic -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="app.js"></script>
+</body>
+</html>
