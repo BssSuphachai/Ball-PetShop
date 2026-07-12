@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, isSupported as isAnalyticsSupported } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
@@ -19,7 +19,17 @@ const db = getFirestore(app);
 
 let analytics = null;
 if (typeof window !== 'undefined') {
-  analytics = getAnalytics(app);
+  // Analytics is optional. It must never prevent Authentication or Firestore
+  // from starting in browsers where analytics is unavailable.
+  isAnalyticsSupported()
+    .then((supported) => {
+      if (supported) {
+        analytics = getAnalytics(app);
+      }
+    })
+    .catch((error) => {
+      console.warn('Firebase Analytics is unavailable:', error);
+    });
 }
 
 export { app, auth, db, analytics };
