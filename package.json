@@ -1,0 +1,29 @@
+{
+  "name": "ball-petshop",
+  "version": "1.0.0",
+  "description": "Suphachai Pet Shop - Online pet supplies store with Firebase Firestore",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "seed": "node scripts/seed-products.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BssSuphachai/Ball-PetShop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BssSuphachai/Ball-PetShop/issues"
+  },
+  "homepage": "https://github.com/BssSuphachai/Ball-PetShop#readme",
+  "dependencies": {
+    "firebase": "^12.16.0"
+  },
+  "devDependencies": {
+    "vite": "^8.1.4"
+  }
+}

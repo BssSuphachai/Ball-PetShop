@@ -1,119 +1,24 @@
-// Product Database
-const products = [
-  // DOGS
-  {
-    id: 'dog-food-1',
-    name: 'อาหารสุนัขเกรดซุปเปอร์พรีเมียม สูตรแกะและข้าวกล้อง (12kg)',
-    price: 1890,
-    image: 'assets/dog_food.png',
-    rating: 4.9,
-    reviews: 142,
-    sku: 'DOG-FD-01',
-    category: 'dog',
-    subCategory: 'food',
-    description: 'อาหารเม็ดสำหรับสุนัขโตเกรดซุปเปอร์พรีเมียม นำเข้าจากออสเตรเลีย สูตรเนื้อแกะและข้าวกล้อง อุดมไปด้วยโปรตีนคุณภาพสูง ช่วยบำรุงกล้ามเนื้อ มีพรีไบโอติกช่วยระบบย่อยอาหาร และโอเมก้า 3 & 6 บำรุงผิวหนังและเส้นขนให้เงางาม'
-  },
-  {
-    id: 'dog-housing-1',
-    name: 'ที่นอนเมมโมรี่โฟม Orthopedic ลายไม้สุดพรีเมียม (Size L)',
-    price: 2650,
-    image: 'assets/dog_bed.png',
-    rating: 4.8,
-    reviews: 78,
-    sku: 'DOG-HS-01',
-    category: 'dog',
-    subCategory: 'housing',
-    description: 'ที่นอนสำหรับสุนัขเพื่อสุขภาพ บรรเทาอาการปวดข้อและสะโพก ผลิตจาก Memory Foam แท้ความหนาแน่นสูง กระจายน้ำหนักได้ดี ป้องกันน้ำซึมผ่านด้วยซับในกันน้ำ ปลอกนอกเป็นผ้ากำมะหยี่สัมผัสนุ่มสบาย สามารถถอดซักเครื่องได้'
-  },
-  {
-    id: 'dog-toys-1',
-    name: 'ชุดของเล่นสุนัขขัดฟัน ยางพาราธรรมชาติและเชือกถัก (3 ชิ้น)',
-    price: 450,
-    image: 'assets/dog_toy.png',
-    rating: 4.7,
-    reviews: 215,
-    sku: 'DOG-TY-01',
-    category: 'dog',
-    subCategory: 'toys',
-    description: 'เซ็ตของเล่นสำหรับสุนัขสายเคี้ยว ผลิตจากยางพาราธรรมชาติ 100% ปลอดภัย ไร้สารพิษ ช่วยนวดเหงือกและขัดฟันขณะกัดแทะ ลดคราบหินปูน มาพร้อมลูกบอลยางใส่ขนมและเชือกถักฝ้ายแท้เหนียวทนทาน'
-  },
+import {
+  fetchProducts,
+  subscribeNewsletter
+} from './firestore-api.js';
+import {
+  addCartItem,
+  changeCartItemQuantity,
+  loadCart,
+  removeCartItem,
+  saveCart
+} from './services/cart-service.js';
+import { checkoutAndPay } from './services/checkout-service.js';
+import {
+  registerWithEmail,
+  loginWithEmail,
+  logout,
+  subscribeToAuthChanges
+} from './services/auth-service.js';
 
-  // CATS
-  {
-    id: 'cat-food-1',
-    name: 'อาหารเปียกแมวสูตรเกรนฟรี เนื้อปลาทูน่าและแซลมอนในน้ำเกรวี่ (12 ซอง)',
-    price: 480,
-    image: 'https://images.unsplash.com/photo-1608454509097-e2522d545ef5?auto=format&fit=crop&q=80&w=600',
-    rating: 4.9,
-    reviews: 320,
-    sku: 'CAT-FD-01',
-    category: 'cat',
-    subCategory: 'food',
-    description: 'อาหารเปียกเกรดโฮลิสติก สูตร Grain-Free ปราศจากส่วนผสมของธัญพืช ข้าวโพด และถั่วเหลือง ทำจากเนื้อทูน่าขาวและแซลมอนเกรดมนุษย์บริโภค อุดมไปด้วยทอรีนช่วยบำรุงสายตาและหัวใจ เพิ่มความชุ่มชื้นให้ร่างกายแมวลดความเสี่ยงโรคนิ่ว'
-  },
-  {
-    id: 'cat-housing-1',
-    name: 'คอนโดแมวไม้แท้สไตล์นอร์ดิก พร้อมเสาลับเล็บเชือกป่านและเปลญวน',
-    price: 3490,
-    image: 'assets/cat_tree.png',
-    rating: 5.0,
-    reviews: 45,
-    sku: 'CAT-HS-01',
-    category: 'cat',
-    subCategory: 'housing',
-    description: 'คอนโดแมวดีไซน์หรูหราสไตล์มินิมัลลิสต์ ผลิตจากไม้สนธรรมชาติแข็งแรงทนทาน มีเบาะรองนอนถอดซักได้ เปลญวนนุ่มสบาย เสาลับเล็บพันด้วยเชือกป่านธรรมชาติคุณภาพดี ช่วยให้แมวได้ขีดข่วนออกกำลังกายและผ่อนคลาย'
-  },
-  {
-    id: 'cat-toys-1',
-    name: 'ของเล่นแมวรางบอลไม้หมุน 3 ชั้น พร้อมตุ๊กตาแคทนิปติดสปริง',
-    price: 320,
-    image: 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&q=80&w=600',
-    rating: 4.6,
-    reviews: 189,
-    sku: 'CAT-TY-01',
-    category: 'cat',
-    subCategory: 'toys',
-    description: 'ของเล่นไม้ฝึกทักษะและสัญชาตญาณนักล่า รางบอล 3 ชั้นพร้อมลูกบอลไม้หมุนได้อย่างราบรื่น ด้านบนมีหนูผ้าแคทนิปติดสปริงส่ายไปมา ดึงดูดความสนใจของแมวได้ยาวนาน ปลอดภัย ไร้เสี้ยนไม้'
-  },
-
-  // ORNAMENTAL FISH
-  {
-    id: 'fish-food-1',
-    name: 'อาหารปลาคาร์พและปลาทองเม็ดลอย สูตรเร่งสี-เร่งโตอย่างรวดเร็ว (1kg)',
-    price: 350,
-    image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&q=80&w=600',
-    rating: 4.8,
-    reviews: 95,
-    sku: 'FSH-FD-01',
-    category: 'fish',
-    subCategory: 'food',
-    description: 'อาหารปลาสูตรพิเศษ มีส่วนผสมของสาหร่ายสไปรูลิน่าคุณภาพสูง ช่วยเร่งสีสันของปลาคาร์พและปลาทองให้เข้มสวยงามตามธรรมชาติ มีโปรตีน 42% เร่งการเจริญเติบโต โครงสร้างสวย ไม่ทำให้น้ำขุ่นเสีย'
-  },
-  {
-    id: 'fish-housing-1',
-    name: 'ตู้ปลาอัจฉริยะ Aquascaping LED ระบบกรองซ่อนภายในห้องเงียบ',
-    price: 5200,
-    image: 'assets/aquarium.png',
-    rating: 4.9,
-    reviews: 32,
-    sku: 'FSH-HS-01',
-    category: 'fish',
-    subCategory: 'housing',
-    description: 'ตู้กระจกใสนิรภัยขอบโค้งมนไร้รอยต่อ หนาพิเศษ 6 มม. มาพร้อมไฟ LED ปรับสีและระดับความสว่างผ่านรีโมทได้ ระบบกรองชีวภาพ 3 ขั้นตอนซ่อนอยู่ด้านหลังตู้ ทำงานเงียบสนิท เหมาะสำหรับตั้งโต๊ะทำงานหรือห้องนั่งเล่น'
-  },
-  {
-    id: 'fish-toys-1',
-    name: 'ปราสาทหินโบราณสำหรับตกแต่งตู้ปลา ซ่อนตัวและว่ายวนลอดช่อง',
-    price: 290,
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=600',
-    rating: 4.5,
-    reviews: 64,
-    sku: 'FSH-TY-01',
-    category: 'fish',
-    subCategory: 'toys',
-    description: 'แบบจำลองปราสาทหินโบราณ ผลิตจากเรซิ่นสังเคราะห์คุณภาพสูง ปลอดภัยต่อปลาทุกชนิดและไม่เปลี่ยนค่า PH ของน้ำ ดีไซน์สมจริง มีช่องสำหรับให้ปลาขนาดเล็กว่ายน้ำลอดผ่านและหลบซ่อนตัวสร้างความเพลิดเพลิน'
-  }
-];
+// Product data loaded from Firestore
+let products = [];
 
 // App State
 let cart = [];
@@ -139,12 +44,40 @@ const cartBadge = document.getElementById('cart-badge');
 const toastContainer = document.getElementById('toast-container');
 
 // Initialize Website
-document.addEventListener('DOMContentLoaded', () => {
-  renderProducts(products);
+document.addEventListener('DOMContentLoaded', async () => {
+  showProductsLoading();
   initEventListeners();
-  updateCartUI();
+  initAuthListener();
   lucide.createIcons();
+
+  try {
+    products = await fetchProducts();
+    cart = loadCart(products);
+    renderProducts(products);
+    updateCartUI();
+  } catch (error) {
+    console.error('Failed to load products from Firestore:', error);
+    productsGrid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-medium);">
+        <i data-lucide="cloud-off" style="width: 60px; height: 60px; stroke-width: 1.5; margin-bottom: 1rem;"></i>
+        <p style="font-size: 1.2rem; font-weight: 600;">ไม่สามารถโหลดสินค้าจากฐานข้อมูลได้</p>
+        <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 0.25rem;">กรุณาตรวจสอบการเชื่อมต่อ Firebase Firestore</p>
+      </div>
+    `;
+    lucide.createIcons();
+    showToast('ไม่สามารถเชื่อมต่อฐานข้อมูลได้ กรุณาลองใหม่อีกครั้ง', 'error');
+  }
 });
+
+function showProductsLoading() {
+  productsGrid.innerHTML = `
+    <div style="grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--text-medium);">
+      <i data-lucide="loader-circle" style="width: 60px; height: 60px; stroke-width: 1.5; margin-bottom: 1rem; animation: spin 1s linear infinite;"></i>
+      <p style="font-size: 1.2rem; font-weight: 600;">กำลังโหลดสินค้าจากฐานข้อมูล...</p>
+    </div>
+  `;
+  lucide.createIcons();
+}
 
 // Toast Notifications Helper
 function showToast(message, type = 'success') {
@@ -163,7 +96,6 @@ function showToast(message, type = 'success') {
   toastContainer.appendChild(toast);
   lucide.createIcons({ attrs: { class: 'toast-icon' } });
   
-  // Slide out and remove toast
   setTimeout(() => {
     toast.style.animation = 'slide-in-toast 0.35s reverse forwards';
     setTimeout(() => {
@@ -192,17 +124,14 @@ function renderProducts(productsList) {
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    // Convert Category to Thai Label
     let catLabel = 'สุนัข';
     if (product.category === 'cat') catLabel = 'แมว';
     if (product.category === 'fish') catLabel = 'ปลาสวยงาม';
     
-    // Convert Subcategory to Thai Label
     let subCatLabel = 'อาหาร';
     if (product.subCategory === 'housing') subCatLabel = 'ที่อยู่อาศัย';
     if (product.subCategory === 'toys') subCatLabel = 'ของเล่น';
 
-    // Generate Stars
     let starsHtml = '';
     const fullStars = Math.floor(product.rating);
     const hasHalf = product.rating % 1 !== 0;
@@ -234,7 +163,7 @@ function renderProducts(productsList) {
         </div>
         <div class="product-actions">
           <button class="btn-card-detail" data-id="${product.id}">ดูรายละเอียด</button>
-          <button class="btn-card-cart" data-id="${product.id}" aria-label="ใส่ตะกร้า">
+          <button class="btn-card-cart" data-id="${product.id}" aria-label="ใส่ตะกร้า" ${product.stock > 0 ? '' : 'disabled'}>
             <i data-lucide="shopping-cart"></i>
           </button>
         </div>
@@ -243,10 +172,8 @@ function renderProducts(productsList) {
     productsGrid.appendChild(card);
   });
   
-  // Re-run Lucide to render newly added card icons
   lucide.createIcons();
   
-  // Attach Event Listeners to Buttons
   document.querySelectorAll('.btn-card-detail').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const pId = e.currentTarget.getAttribute('data-id');
@@ -276,12 +203,10 @@ function filterProducts(category, subCategory = null) {
   
   renderProducts(filtered);
   
-  // Close navigation menu on mobile after selection
   navMenu.classList.remove('active');
   menuToggle.innerHTML = '<i data-lucide="menu"></i>';
   lucide.createIcons();
   
-  // Scroll smoothly to products section
   const section = document.getElementById('categories-section');
   const yOffset = -100; 
   const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
@@ -293,20 +218,22 @@ function addToCart(productId, quantity = 1) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
-  const existingItem = cart.find(item => item.product.id === productId);
-  if (existingItem) {
-    existingItem.quantity += quantity;
-  } else {
-    cart.push({ product, quantity });
+  const result = addCartItem(cart, product, quantity);
+  if (result.error) {
+    showToast(result.error === 'out_of_stock'
+      ? 'สินค้าหมดชั่วคราว'
+      : 'จำนวนสินค้าในตะกร้าเกินสต็อกที่มี', 'error');
+    return;
   }
-  
+
+  cart = result.cart;
   updateCartUI();
   showToast(`เพิ่ม "${product.name.substring(0, 25)}..." ลงตะกร้าแล้ว`);
 }
 
 // Remove from Cart
 function removeFromCart(productId) {
-  cart = cart.filter(item => item.product.id !== productId);
+  cart = removeCartItem(cart, productId).cart;
   updateCartUI();
   showToast('ลบสินค้าออกจากตะกร้าแล้ว', 'info');
 }
@@ -316,12 +243,14 @@ function updateQuantity(productId, amount) {
   const item = cart.find(item => item.product.id === productId);
   if (!item) return;
 
-  item.quantity += amount;
-  if (item.quantity <= 0) {
-    removeFromCart(productId);
-  } else {
-    updateCartUI();
+  const result = changeCartItemQuantity(cart, productId, amount);
+  if (result.error) {
+    showToast('จำนวนสินค้าในตะกร้าเกินสต็อกที่มี', 'error');
+    return;
   }
+
+  cart = result.cart;
+  updateCartUI();
 }
 
 // Update Cart Badge, Totals, and List
@@ -330,7 +259,6 @@ function updateCartUI() {
   const cartTotalItems = document.getElementById('cart-total-items');
   const cartGrandTotal = document.getElementById('cart-grand-total');
   
-  // Badge calculation
   const totalItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
   cartBadge.textContent = totalItemsCount;
   cartBadge.style.display = totalItemsCount > 0 ? 'flex' : 'none';
@@ -349,7 +277,6 @@ function updateCartUI() {
     return;
   }
 
-  // Generate cart items HTML
   let cartHtml = '<div class="cart-items-list">';
   let grandTotal = 0;
 
@@ -386,7 +313,6 @@ function updateCartUI() {
   
   lucide.createIcons();
 
-  // Attach event listeners for buttons in cart
   document.querySelectorAll('.qty-btn.minus').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const pId = e.currentTarget.getAttribute('data-id');
@@ -419,7 +345,6 @@ function openProductModal(productId) {
   document.getElementById('modal-img').src = product.image;
   document.getElementById('modal-img').alt = product.name;
   
-  // Category Label
   let subCatLabel = 'อาหาร';
   if (product.subCategory === 'housing') subCatLabel = 'ที่อยู่อาศัย';
   if (product.subCategory === 'toys') subCatLabel = 'ของเล่น';
@@ -431,7 +356,6 @@ function openProductModal(productId) {
   document.getElementById('modal-sku').textContent = product.sku;
   document.getElementById('modal-qty-val').textContent = '1';
   
-  // Rating stars inside modal
   const modalRatingContainer = document.getElementById('modal-rating');
   modalRatingContainer.innerHTML = '';
   
@@ -451,12 +375,10 @@ function openProductModal(productId) {
   
   lucide.createIcons();
   
-  // Show Modal and Overlay
   productModal.classList.add('active');
   overlay.classList.add('active');
 }
 
-// Close Modal
 function closeProductModal() {
   productModal.classList.remove('active');
   if (!cartDrawer.classList.contains('active') && !memberDrawer.classList.contains('active')) {
@@ -464,12 +386,11 @@ function closeProductModal() {
   }
 }
 
-// Toggle Drawers
 function toggleCartDrawer(open) {
   if (open) {
     cartDrawer.classList.add('active');
     overlay.classList.add('active');
-    memberDrawer.classList.remove('active'); // Close other drawer
+    memberDrawer.classList.remove('active');
   } else {
     cartDrawer.classList.remove('active');
     if (!productModal.classList.contains('active') && !memberDrawer.classList.contains('active')) {
@@ -482,7 +403,7 @@ function toggleMemberDrawer(open) {
   if (open) {
     memberDrawer.classList.add('active');
     overlay.classList.add('active');
-    cartDrawer.classList.remove('active'); // Close other drawer
+    cartDrawer.classList.remove('active');
   } else {
     memberDrawer.classList.remove('active');
     if (!productModal.classList.contains('active') && !cartDrawer.classList.contains('active')) {
@@ -491,9 +412,54 @@ function toggleMemberDrawer(open) {
   }
 }
 
+function showMemberProfile(user) {
+  const loginWrapper = document.getElementById('login-form-wrapper');
+  const registerWrapper = document.getElementById('register-form-wrapper');
+  const profileWrapper = document.getElementById('member-profile-wrapper');
+  const memberTitle = document.getElementById('member-title');
+
+  document.getElementById('user-display-name').textContent = `คุณ ${user.displayName}`;
+  document.getElementById('user-display-email').textContent = user.email;
+
+  loginWrapper.style.display = 'none';
+  registerWrapper.style.display = 'none';
+  profileWrapper.style.display = 'block';
+  memberTitle.innerHTML = '<i data-lucide="shield-check"></i> บัญชีของคุณ';
+  lucide.createIcons();
+}
+
+function showLoginForm() {
+  const loginWrapper = document.getElementById('login-form-wrapper');
+  const registerWrapper = document.getElementById('register-form-wrapper');
+  const profileWrapper = document.getElementById('member-profile-wrapper');
+  const memberTitle = document.getElementById('member-title');
+
+  profileWrapper.style.display = 'none';
+  registerWrapper.style.display = 'none';
+  loginWrapper.style.display = 'block';
+  memberTitle.innerHTML = '<i data-lucide="user-check"></i> เข้าสู่ระบบ';
+  lucide.createIcons();
+}
+
+function initAuthListener() {
+  subscribeToAuthChanges((user) => {
+    currentUser = user;
+
+    if (user) {
+      showMemberProfile(user);
+    } else {
+      showLoginForm();
+    }
+  });
+}
+
+function setAuthButtonLoading(button, isLoading, defaultText) {
+  button.disabled = isLoading;
+  button.textContent = isLoading ? 'กำลังดำเนินการ...' : defaultText;
+}
+
 // Event Listeners
 function initEventListeners() {
-  // Header scroll shadow effect
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
@@ -502,7 +468,6 @@ function initEventListeners() {
     }
   });
 
-  // Mobile menu toggle
   menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
     const isActive = navMenu.classList.contains('active');
@@ -510,18 +475,12 @@ function initEventListeners() {
     lucide.createIcons();
   });
 
-  // Mobile Dropdowns Toggle on Link Click
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
-      // Only do accordion dropdown on mobile screens
       if (window.innerWidth <= 768) {
         e.preventDefault();
         const parent = link.parentElement;
-        
-        // Toggle active state
         parent.classList.toggle('active');
-        
-        // Close others
         document.querySelectorAll('.nav-item').forEach(item => {
           if (item !== parent) item.classList.remove('active');
         });
@@ -529,26 +488,22 @@ function initEventListeners() {
     });
   });
 
-  // Category Quick Filter Tags
   document.querySelectorAll('.filter-tag').forEach(tag => {
-    tag.addEventListener('click', (e) => {
+    tag.addEventListener('click', () => {
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
       tag.classList.add('active');
-      
       const filter = tag.getAttribute('data-filter-tag');
       filterProducts(filter);
     });
   });
 
-  // Header Nav Dropdown Links Click
   document.querySelectorAll('.dropdown-item a').forEach(item => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
-      const filterVal = item.getAttribute('data-filter'); // dog-food, dog-housing, etc.
+      const filterVal = item.getAttribute('data-filter');
       const parts = filterVal.split('-');
       filterProducts(parts[0], parts[1]);
       
-      // Update quick filter buttons active state
       document.querySelectorAll('.filter-tag').forEach(t => {
         if (t.getAttribute('data-filter-tag') === parts[0]) {
           t.classList.add('active');
@@ -559,13 +514,11 @@ function initEventListeners() {
     });
   });
 
-  // Open/Close Drawers
   cartBtn.addEventListener('click', () => toggleCartDrawer(true));
   cartCloseBtn.addEventListener('click', () => toggleCartDrawer(false));
   memberBtn.addEventListener('click', () => toggleMemberDrawer(true));
   memberCloseBtn.addEventListener('click', () => toggleMemberDrawer(false));
   
-  // Close everything via Overlay
   overlay.addEventListener('click', () => {
     closeProductModal();
     toggleCartDrawer(false);
@@ -574,7 +527,6 @@ function initEventListeners() {
 
   modalCloseBtn.addEventListener('click', closeProductModal);
 
-  // Hero section Shop Now button
   document.getElementById('hero-shop-btn').addEventListener('click', () => {
     filterProducts('all');
   });
@@ -583,7 +535,6 @@ function initEventListeners() {
     showToast('Suphachai Pet Shop ยินดีต้อนรับครับ! ร้านเราเปิด 09:00 - 20:00 น. ทุกวัน', 'info');
   });
 
-  // Brand Logo Click to reset filters
   document.getElementById('brand-logo').addEventListener('click', (e) => {
     e.preventDefault();
     document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
@@ -592,7 +543,6 @@ function initEventListeners() {
     window.scrollTo({top: 0, behavior: 'smooth'});
   });
 
-  // Modal Qty Selectors
   const modalQtyVal = document.getElementById('modal-qty-val');
   document.getElementById('modal-qty-minus').addEventListener('click', () => {
     let val = parseInt(modalQtyVal.textContent);
@@ -606,7 +556,6 @@ function initEventListeners() {
     modalQtyVal.textContent = val + 1;
   });
 
-  // Modal Add to Cart
   document.getElementById('modal-add-to-cart-btn').addEventListener('click', () => {
     if (currentSelectedProduct) {
       const qty = parseInt(modalQtyVal.textContent);
@@ -615,7 +564,6 @@ function initEventListeners() {
     }
   });
 
-  // Mock Login / Register flow
   const loginWrapper = document.getElementById('login-form-wrapper');
   const registerWrapper = document.getElementById('register-form-wrapper');
   const profileWrapper = document.getElementById('member-profile-wrapper');
@@ -635,97 +583,132 @@ function initEventListeners() {
     lucide.createIcons();
   });
 
-  document.getElementById('login-submit-btn').addEventListener('click', () => {
-    const email = document.getElementById('login-email').value;
-    if (!email) {
-      showToast('กรุณากรอกอีเมลของคุณ', 'error');
+  document.getElementById('login-submit-btn').addEventListener('click', async () => {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const loginBtn = document.getElementById('login-submit-btn');
+
+    if (!email || !password) {
+      showToast('กรุณากรอกอีเมลและรหัสผ่าน', 'error');
       return;
     }
-    
-    // Perform mock login
-    currentUser = {
-      name: email.split('@')[0],
-      email: email
-    };
 
-    document.getElementById('user-display-name').textContent = `คุณ ${currentUser.name}`;
-    document.getElementById('user-display-email').textContent = currentUser.email;
+    setAuthButtonLoading(loginBtn, true, 'เข้าสู่ระบบ');
 
-    loginWrapper.style.display = 'none';
-    profileWrapper.style.display = 'block';
-    memberTitle.innerHTML = '<i data-lucide="shield-check"></i> บัญชีของคุณ';
-    lucide.createIcons();
-    
-    showToast(`ยินดีต้อนรับกลับมาครับ คุณ ${currentUser.name}!`);
+    try {
+      const user = await loginWithEmail({ email, password });
+      currentUser = user;
+      showMemberProfile(user);
+      showToast(`ยินดีต้อนรับกลับมาครับ คุณ ${user.displayName}!`);
+      document.getElementById('login-password').value = '';
+    } catch (error) {
+      showToast(error.message, 'error');
+    } finally {
+      setAuthButtonLoading(loginBtn, false, 'เข้าสู่ระบบ');
+    }
   });
 
-  document.getElementById('register-submit-btn').addEventListener('click', () => {
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
+  document.getElementById('register-submit-btn').addEventListener('click', async () => {
+    const displayName = document.getElementById('register-name').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value;
+    const registerBtn = document.getElementById('register-submit-btn');
     
-    if (!name || !email) {
+    if (!displayName || !email || !password) {
       showToast('กรุณากรอกข้อมูลให้ครบถ้วน', 'error');
       return;
     }
 
-    currentUser = { name, email };
-    document.getElementById('user-display-name').textContent = `คุณ ${currentUser.name}`;
-    document.getElementById('user-display-email').textContent = currentUser.email;
+    if (password.length < 6) {
+      showToast('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร', 'error');
+      return;
+    }
 
-    registerWrapper.style.display = 'none';
-    profileWrapper.style.display = 'block';
-    memberTitle.innerHTML = '<i data-lucide="shield-check"></i> บัญชีของคุณ';
-    lucide.createIcons();
+    setAuthButtonLoading(registerBtn, true, 'สมัครสมาชิก');
 
-    showToast('สมัครสมาชิกและเข้าสู่ระบบเสร็จสิ้น!');
+    try {
+      const user = await registerWithEmail({ displayName, email, password });
+      currentUser = user;
+      showMemberProfile(user);
+      showToast('สมัครสมาชิกและเข้าสู่ระบบเสร็จสิ้น!');
+      document.getElementById('register-password').value = '';
+    } catch (error) {
+      showToast(error.message, 'error');
+    } finally {
+      setAuthButtonLoading(registerBtn, false, 'สมัครสมาชิก');
+    }
   });
 
-  document.getElementById('logout-btn').addEventListener('click', () => {
-    currentUser = null;
-    profileWrapper.style.display = 'none';
-    loginWrapper.style.display = 'block';
-    memberTitle.innerHTML = '<i data-lucide="user-check"></i> เข้าสู่ระบบ';
-    
-    // Clear inputs
-    document.getElementById('login-email').value = '';
-    document.getElementById('login-password').value = '';
-    
-    lucide.createIcons();
-    showToast('ออกจากระบบเรียบร้อยแล้ว', 'info');
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    try {
+      await logout();
+      currentUser = null;
+      showLoginForm();
+      document.getElementById('login-email').value = '';
+      document.getElementById('login-password').value = '';
+      showToast('ออกจากระบบเรียบร้อยแล้ว', 'info');
+    } catch (error) {
+      showToast(error.message, 'error');
+    }
   });
 
-  // Newsletter Submit Mock
-  document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+  document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const input = e.currentTarget.querySelector('input');
-    showToast(`ขอบคุณที่สนใจ! เราได้บันทึกอีเมล ${input.value} เรียบร้อยแล้ว`);
-    input.value = '';
+    const email = input.value.trim();
+
+    try {
+      const result = await subscribeNewsletter(email);
+      if (result.alreadySubscribed) {
+        showToast('อีเมลนี้สมัครรับข่าวสารไว้แล้ว', 'info');
+      } else {
+        showToast(`ขอบคุณที่สนใจ! เราได้บันทึกอีเมล ${email} เรียบร้อยแล้ว`);
+      }
+      input.value = '';
+    } catch (error) {
+      showToast('ไม่สามารถบันทึกอีเมลได้ กรุณาลองใหม่อีกครั้ง', 'error');
+    }
   });
 
-  // Checkout Button
-  document.getElementById('checkout-btn').addEventListener('click', () => {
+  document.getElementById('checkout-btn').addEventListener('click', async () => {
     if (cart.length === 0) return;
-    
+
     if (!currentUser) {
-      showToast('กรุณาเข้าสู่ระบบก่อนดำเนินการสั่งซื้อสินค้าครับ', 'error');
+      showToast('กรุณาเข้าสู่ระบบก่อนดำเนินการสั่งซื้อ', 'error');
       toggleMemberDrawer(true);
       return;
     }
 
-    showToast('สั่งซื้อสำเร็จ! ขอบคุณที่อุดหนุน Suphachai Pet Shop ครับ');
-    cart = [];
-    updateCartUI();
-    toggleCartDrawer(false);
+    const checkoutButton = document.getElementById('checkout-btn');
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = 'กำลังชำระเงิน...';
+
+    try {
+      const { orderId, pricing } = await checkoutAndPay({
+        user: currentUser,
+        cartItems: cart
+      });
+
+      cart = [];
+      saveCart(cart);
+      updateCartUI();
+      toggleCartDrawer(false);
+      showToast(`ชำระเงินสำเร็จ เลขที่คำสั่งซื้อ: ${orderId} (${pricing.total.toLocaleString()} บาท)`);
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      showToast(error.message || 'ไม่สามารถดำเนินการชำระเงินได้ กรุณาลองใหม่อีกครั้ง', 'error');
+    } finally {
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = 'ดำเนินการสั่งซื้อ';
+    }
   });
   
-  // Footer Links Filter Logic
   document.querySelectorAll('.footer-links a').forEach(link => {
     link.addEventListener('click', (e) => {
       const filterVal = link.getAttribute('data-filter');
       if (filterVal) {
         e.preventDefault();
         
-        // Update tags selection in UI
         document.querySelectorAll('.filter-tag').forEach(t => {
           if (t.getAttribute('data-filter-tag') === filterVal) {
             t.classList.add('active');
